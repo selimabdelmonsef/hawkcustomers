@@ -7,47 +7,25 @@ table {
   
   td, th {
     border: 1px solid #dddddd;
-    text-align: left;
     padding: 8px;
   }
   .infoListComponent{
+    min-width: fit-content;
       .tableTitles{
           font-size: 10px;
       }
+      .customerInfo{
+          cursor: pointer;
+      }
+      .customerInfoSelected{
+          font-weight: bold;
+      }
   }
-  
-// .infoListComponent {
-//     .header {
-//         display: flex;
-//         justify-content: space-between;
-//         font-size: 10px;
-//         font-weight: bold;
-//         .title{
-//         margin: 10px;
-//         }
-//         .addNewBtn {
-//             height: 25px;
-//             font-weight: bold;
-//             width: 84px;
-//             cursor: pointer;
-//         }
-//     }
-//     .listElementContainer {
-//         border-top: 1px solid black;
-//         min-height: 200px;
-//         border-right: 1px solid;
-//         .listElement {
-//             border-bottom: 1px solid black;
-//             padding: 5px 20px;
-//         }
-//         .selectedListElement{
-//             border-bottom: 1px solid black;
-//             padding: 5px 20px;
-//             font-weight: bold;
-//         }
-//     }
 
-// }
 @media only screen and (min-width:768px) {
-
+    .infoListComponent{
+          .tableTitles{
+              font-size: 15px;
+          }
+      }
   }

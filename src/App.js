@@ -1,14 +1,62 @@
 import './App.scss';
 import InfoListComponent from './components/infoListComponent/infoListComponent';
-import {cooo} from './conss.js'
+import { api } from './constants/api.constants';
+import useFetch from './fetch/useFetch';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCustomer, getCustomers, selectCustomer } from './state/redux-actions/customerAction';
+import { useEffect } from 'react';
 
 function App() {
+  const dispatch = useDispatch();
+  const customers = useSelector(state => state.customer.customers);
+  const { data: getCustomersData, isPending, error } = useFetch(api.customers_api);
+
+  useEffect(() => {
+    setCustomersData();
+  }, [getCustomersData]);
+
+  const setCustomersData = () => {
+    dispatch(getCustomers(getCustomersData))
+  }
+  const addNewCustomer = () => {
+    const firstName = prompt("Enter First Name");
+    const lastName = prompt("Enter Last Name");
+    const username = prompt("Enter username");
+    const gender = prompt("Enter gender");
+    const email = prompt("Enter email");
+    const phone_number = prompt("Enter phone number");
+    const address = prompt("Enter address");
+    const CCNumber = prompt("Enter CC Number");
+    dispatch(addCustomer({
+      "first_name": firstName,
+      "last_name": lastName,
+      "username": username,
+      "gender": gender,
+      "email": email,
+      "phone_number": phone_number,
+      address: {"city":address},
+      credit_card:{"cc_number":CCNumber},
+    }));
+  }
   return (
     <div className="app">
+      <div>
+        <button onClick={() => addNewCustomer()}> add new </button>
+        <button onClick={() => console.log(customers)}>DELETE</button>
+        <button>EDIT</button>
+      </div>
       <p>My Customers</p>
-      <InfoListComponent 
-      tabelTitles={["Customers","Salaries","ay haga","ay haga 2","ay haga 3"]}
-      customerInfos={cooo}/>
+      <div>
+        {isPending ? "Lodaing..."
+          :
+          <InfoListComponent
+            tabelTitles={["#", "First Name", "Last Name", "Username", "Gender", "Email", "Phone Number", "Adress", "CC Number"]}
+            customerInfos={customers}
+            selectedCustomer={(selectedCustomer) => dispatch(selectCustomer(selectedCustomer))}
+          />}
+        {error ? "something went wrong please refresh" : ""}
+      </div>
+
     </div>
   );
 }

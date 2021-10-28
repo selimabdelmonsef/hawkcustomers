@@ -1,97 +1,42 @@
 
 import styles from './infoListComponent.module.scss';
+import { useSelector } from 'react-redux';
 
 const InfoListComponent = ({
     tabelTitles,
-    // customerInfos,
     customerInfos,
     customerData,
     dataInput,
     selectedCustomer
 }) => {
+    const getSelectedCustomer = useSelector(state => state.customer.selected);
 
     return (
         <div className={styles.infoListComponent}>
             <table>
                 <tr className={styles.tableTitles}>
-                    {tabelTitles?.map((element)=>{
+                    {tabelTitles?.map((element) => {
                         return <th>{element}</th>
                     })}
                 </tr>
-               
-                {customerInfos?.map((infosElements)=>{
-                    return  <tr>
-                         <td>
-                            {infosElements?.username}
-                        </td>
-                        <td>
-                            {infosElements?.gender}
-                        </td>
-                        </tr>
+                {customerInfos?.map((infosElements, index) => {
+                    return <tr key={infosElements?.username}
+                        className={`${styles.customerInfo} ${getSelectedCustomer === infosElements ? styles.customerInfoSelected : ''}`}
+                        onClick={() => selectedCustomer(infosElements)}>
+                        <td>{index + 1}</td>
+                        <td>{infosElements?.first_name}</td>
+                        <td>{infosElements?.last_name}</td>
+                        <td>{infosElements?.username}</td>
+                        <td>{infosElements?.gender}</td>
+                        <td>{infosElements?.email}</td>
+                        <td>{infosElements?.phone_number}</td>
+                        <td>{infosElements?.address?.city}</td>
+                        <td>{infosElements?.credit_card?.cc_number}</td>
+                    </tr>
                 })}
-                
-                {/* <tr>
-                    <td>Alfreds Futterkiste</td>
-                    <td>Maria Anders</td>
-                    <td>Germany</td>
-                </tr>
-                <tr>
-                    <td>Centro comercial Moctezuma</td>
-                    <td>Francisco Chang</td>
-                    <td>Mexico</td>
-                </tr>
-                <tr>
-                    <td>Ernst Handel</td>
-                    <td>Roland Mendel</td>
-                    <td>Austria</td>
-                </tr>
-                <tr>
-                    <td>Island Trading</td>
-                    <td>Helen Bennett</td>
-                    <td>UK</td>
-                </tr>
-                <tr>
-                    <td>Laughing Bacchus Winecellars</td>
-                    <td>Yoshi Tannamuri</td>
-                    <td>Canada</td>
-                </tr>
-                <tr>
-                    <td>Magazzini Alimentari Riuniti</td>
-                    <td>Giovanni Rovelli</td>
-                    <td>Italy</td>
-                </tr> */}
+
             </table>
         </div>
-        // <div className={styles.infoListComponent}>
-        //     <div className={styles.header}>
-        //         <div>
-        //             <div className={styles.title}>Customers</div>
-        //             <div className={styles.listElementContainer}>
-        //         {customerData?.map((element) => {
-        //             return (
-        //                 <div key={element}
-        //                     onClick={() => selectedCustomer(element)}
-        //                     className={styles.listElement}>
-        //                     {element}
-        //                 </div>
-        //             );
-        //         })
-        //         }
-        //     </div>
-        //         </div>
-        //         {infoTitles.map((infoTitleElements)=>{
-        //             return <div className={styles.title}>
-        //                 {infoTitleElements}
-        //                 {customerInfos?.map((element)=>{
-        //                     return <div>{element}</div>
-        //                 })}
-        //                 </div>
-        //         })}
-
-
-        //     </div>
-
-        // </div>
     );
 }
 export default InfoListComponent;
