@@ -1,0 +1,28 @@
+.app {
+  margin: 20px 10px;
+  text-align: center;
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px 0px;
+  }
+  .infoListsContainer {
+    border: 1px solid black;
+}
+.customerSelected{
+  color: red;
+    text-align-last: center;
+}
+}
+
+@media only screen and (min-width:768px) {
+  .app {
+    margin: 20px 40px;
+    .title{
+      font-size: 30px;
+      // margin: 0px 0px;
+    }
+    
+  }
+}

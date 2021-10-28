@@ -1,23 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import InfoListComponent from './components/infoListComponent/infoListComponent';
+import {cooo} from './conss.js'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <p>My Customers</p>
+      <InfoListComponent 
+      tabelTitles={["Customers","Salaries","ay haga","ay haga 2","ay haga 3"]}
+      customerInfos={cooo}/>
     </div>
   );
 }
