@@ -3,7 +3,7 @@ import InfoListComponent from './components/infoListComponent/infoListComponent'
 import { api } from './constants/api.constants';
 import useFetch from './fetch/useFetch';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCustomer, deleteCustomer, getCustomers, selectCustomer } from './state/redux-actions/customerAction';
+import { addCustomer, deleteCustomer, editCustomer, getCustomers, selectCustomer } from './state/redux-actions/customerAction';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -28,6 +28,15 @@ function App() {
       dispatch(deleteCustomer());
       setSelectedCustomer(selectedCustomer);
     }
+  }
+  const editedCustomer = () => {
+    const firstName = prompt("Enter First Name");
+    const lastName = prompt("Enter Last Name");
+    dispatch(editCustomer({
+      "first_name": firstName,
+      "last_name": lastName,
+    }));
+    // dispatch(editCustomer())
   }
   const addNewCustomer = () => {
     const firstName = prompt("Enter First Name");
@@ -54,11 +63,11 @@ function App() {
       <div>
         <button onClick={() => addNewCustomer()}> add new </button>
         <button onClick={() => deletedCustomer()}>DELETE</button>
-        <button>EDIT</button>
+        <button onClick={() => editedCustomer()}>EDIT </button>
       </div>
       <p>My Customers</p>
       <div>
-        {isPending ? "Lodaing..."
+        {isPending ? "Loading..."
           :
           <InfoListComponent
             tabelTitles={["#", "First Name", "Last Name", "Username", "Gender", "Email", "Phone Number", "Adress", "CC Number"]}
