@@ -14,3 +14,8 @@ export const addCustomer = (payload)=>({
     type: REDUCERS_CONSTANTS.CUSTOMER.ADD_CUSTOMER,
     data: payload
 });
+
+export const deleteCustomer = ()=>({
+    type: REDUCERS_CONSTANTS.CUSTOMER.DELETE_CUSTOMER,
+// data:payload
+});
