@@ -21,13 +21,21 @@ const customerReducer = (state = initstate, action) => {
             return {
                 ...state,
                 customers: [
-                    ...state.customers,action.data
+                    ...state.customers, action.data
                 ]
             }
-            case REDUCERS_CONSTANTS.CUSTOMER.DELETE_CUSTOMER:
+        case REDUCERS_CONSTANTS.CUSTOMER.DELETE_CUSTOMER:
             return {
                 ...state,
-                customers: state.customers.filter(item => state.selected!== item)
+                customers: state.customers.filter(item => state.selected !== item)
+            }
+        case REDUCERS_CONSTANTS.CUSTOMER.EDIT_CUSTOMER:
+            return {
+                   ...state,
+                   customers:[
+                       ...state.customers,
+                       Object.assign(state.selected,action.data)
+                    ]
             }
         default:
             return state;
