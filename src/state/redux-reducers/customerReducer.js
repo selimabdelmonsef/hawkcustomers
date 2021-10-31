@@ -24,6 +24,11 @@ const customerReducer = (state = initstate, action) => {
                     ...state.customers,action.data
                 ]
             }
+            case REDUCERS_CONSTANTS.CUSTOMER.DELETE_CUSTOMER:
+            return {
+                ...state,
+                customers: state.customers.filter(item => state.selected!== item)
+            }
         default:
             return state;
     }
