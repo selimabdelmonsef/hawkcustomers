@@ -2,7 +2,7 @@ import { REDUCERS_CONSTANTS } from "../../constants/reducers.constants";
 
 const initstate = {
     selected: null,
-    customers: []
+    customers: {}
 }
 const customerReducer = (state = initstate, action) => {
     console.log(state);
@@ -20,22 +20,27 @@ const customerReducer = (state = initstate, action) => {
         case REDUCERS_CONSTANTS.CUSTOMER.ADD_CUSTOMER:
             return {
                 ...state,
-                customers: [
-                    ...state.customers, action.data
-                ]
+                customers: {
+                    ...state.customers,
+                    [action.data.id]: { ...action.data }
+                }
             }
         case REDUCERS_CONSTANTS.CUSTOMER.DELETE_CUSTOMER:
+            delete state.customers[state.selected.id];
             return {
-                ...state,
-                customers: state.customers.filter(item => state.selected !== item)
+                ...state
             }
         case REDUCERS_CONSTANTS.CUSTOMER.EDIT_CUSTOMER:
             return {
-                   ...state,
-                   customers:[
-                       ...state.customers,
-                       Object.assign(state.selected,action.data)
-                    ]
+                ...state,
+                customers: {
+                    ...state.customers,
+                    [state.selected.id]: {
+                        ...state.selected,
+                        ...action.data
+                    }
+                }
+
             }
         default:
             return state;

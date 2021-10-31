@@ -19,7 +19,7 @@ const InfoListComponent = ({
                         return <th>{element}</th>
                     })}
                 </tr>
-                {customerInfos?.map((infosElements, index) => {
+                {customerInfos && Object.values(customerInfos).map((infosElements, index) => {
                     return <tr key={infosElements?.username}
                         className={`${styles.customerInfo} ${getSelectedCustomer === infosElements ? styles.customerInfoSelected : ''}`}
                         onClick={() => selectedCustomer(infosElements)}>

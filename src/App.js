@@ -1,7 +1,7 @@
 import './App.scss';
 import InfoListComponent from './components/infoListComponent/infoListComponent';
 import { api } from './constants/api.constants';
-import useFetch from './fetch/useFetch';
+import useFetch from './hook/useFetch';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCustomer, deleteCustomer, editCustomer, getCustomers, selectCustomer } from './state/redux-actions/customerAction';
 import { useEffect, useState } from 'react';
@@ -18,8 +18,9 @@ function App() {
   }, [getCustomersData]);
 
   const setCustomersData = () => {
-    dispatch(getCustomers(getCustomersData))
-  }
+    dispatch(getCustomers(getCustomersData));
+  };
+
   const deletedCustomer = () => {
     if (selectedCustomer === null || selectedCustomerState === selectedCustomer) {
       alert("Select a customer first please");
@@ -36,11 +37,11 @@ function App() {
       "first_name": firstName,
       "last_name": lastName,
     }));
-    // dispatch(editCustomer())
   }
   const addNewCustomer = () => {
-    const firstName = prompt("Enter First Name");
-    const lastName = prompt("Enter Last Name");
+    const id = prompt("Enter Id");
+    const first_name = prompt("Enter First Name");
+    const last_name = prompt("Enter Last Name");
     const username = prompt("Enter username");
     const gender = prompt("Enter gender");
     const email = prompt("Enter email");
@@ -48,12 +49,13 @@ function App() {
     const address = prompt("Enter address");
     const CCNumber = prompt("Enter credit card Number");
     dispatch(addCustomer({
-      "first_name": firstName,
-      "last_name": lastName,
-      "username": username,
-      "gender": gender,
-      "email": email,
-      "phone_number": phone_number,
+      id,
+      first_name,
+      last_name,
+      username,
+      gender,
+      email,
+      phone_number,
       address: { "city": address },
       credit_card: { "cc_number": CCNumber },
     }));
