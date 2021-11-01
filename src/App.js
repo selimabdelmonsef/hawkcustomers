@@ -16,9 +16,6 @@ function App() {
   const { data: getCustomersData, isPending, error } = useFetch(api.customers_api);
   const [onAddClick, setOnAddClick] = useState(false);
   const [onEditClick, setOnEditClick] = useState(false);
-  const [addNewCustomerClicked, setAddNewCustomerClicked] = useState(false);
-  const [editCustomerClicked, setEditCustomerClicked] = useState(false);
-
 
   useEffect(() => {
     setCustomersData();
@@ -37,39 +34,33 @@ function App() {
       setSelectedCustomer(selectedCustomer);
     }
   }
-  const editedCustomer = () => {
+  const onEditedCustomerClick = () => {
     if (!selectedCustomer) {
       alert("Please select a customer first");
     }
     else {
       setOnEditClick(true);
-      setEditCustomerClicked(true);
     }
-
   }
+
   const onAddNewCustomerClick = () => {
     setOnAddClick(true);
-    setAddNewCustomerClicked(true);
   }
 
-  const addEditNewCustomer = (getInfos) => {
-    if (addNewCustomerClicked === true) {
-      dispatch(addCustomer(getInfos));
-      setAddNewCustomerClicked(false);
-    }
-    else if (editCustomerClicked === true) {
-      dispatch(editCustomer(getInfos));
-      setEditCustomerClicked(false);
-    }
+  const addNewCustomer = (getInfos)=>{
+    dispatch(addCustomer(getInfos));
+  }
+  const editSelectedCustomer=(getInfos)=>{
+    dispatch(editCustomer(getInfos))
   }
   return (
     <div className="app">
       {getCustomersData &&
         <>
           <div>
-            <button onClick={() => onAddNewCustomerClick()}> add new </button>
+            <button onClick={() => onAddNewCustomerClick()}>ADD</button>
             <button onClick={() => deletedCustomer()}>DELETE</button>
-            <button onClick={() => editedCustomer()}>EDIT </button>
+            <button onClick={() => onEditedCustomerClick()}>EDIT</button>
           </div>
           <p>My Customers</p>
         </>
@@ -78,7 +69,7 @@ function App() {
         {onAddClick && <div className="formComponentStyle">
           <FormComponent
             onSubmit={(submition) => setOnAddClick(submition)}
-            infos={(getInfos) => addEditNewCustomer(getInfos)}
+            infos={(getInfos) => addNewCustomer(getInfos)}
             _canEditId={true}
             _id=""
             _first_name=""
@@ -95,7 +86,7 @@ function App() {
         {onEditClick && <div className="formComponentStyle">
           <FormComponent
             onSubmit={(submition) => setOnEditClick(submition)}
-            infos={(getInfos) => addEditNewCustomer(getInfos)}
+            infos={(getInfos) => editSelectedCustomer(getInfos)}
             _canEditId={false}
             _id={selectedCustomer?.id}
             _first_name={selectedCustomer?.first_name}
