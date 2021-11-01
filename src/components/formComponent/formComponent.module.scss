@@ -1,7 +1,7 @@
 .formStyle{
     background-color: lightgray;
     position: absolute;
-    width: 60%;
+    width: 100%;
     padding-bottom: 25px;
     opacity: 0.9;
     .inputStyles{
@@ -23,3 +23,10 @@
         color: darkred;
     }
 }
+@media only screen and (min-width:768px) {
+
+    .formStyle{
+        width: 60%;
+
+    }
+  }

@@ -59,23 +59,23 @@ const FormComponent = ({
                 <div className={styles.customerInfo}> Customer Info </div>
                 <div className={styles.inputStyles}>
                     {_canEditId && <input onChange={(e) => setId(e.target.value)} placeholder="id" />}
-                    {!_canEditId && <input disabled={true} value={id} />}
-                    <input onChange={(e) => setfirst_name(e.target.value)} placeholder={first_name || "first name"} />
+                    {!_canEditId && <input disabled={true} value={_id} />}
+                    <input onChange={(e) => setfirst_name(e.target.value)} placeholder={_first_name || "first name"} />
                 </div>
                 <div className={styles.inputStyles}>
-                    <input onChange={(e) => setlast_name(e.target.value)} placeholder={last_name || "last name"} />
-                    <input onChange={(e) => setusername(e.target.value)} placeholder={username || "username"} />
+                    <input onChange={(e) => setlast_name(e.target.value)} placeholder={_last_name || "last name"} />
+                    <input onChange={(e) => setusername(e.target.value)} placeholder={_username || "username"} />
                 </div>
                 <div className={styles.inputStyles}>
-                    <input onChange={(e) => setgender(e.target.value)} placeholder={gender || "gender"} />
-                    <input onChange={(e) => setEmail(e.target.value)} placeholder={email || "email"} />
+                    <input onChange={(e) => setgender(e.target.value)} placeholder={_gender || "gender"} />
+                    <input onChange={(e) => setEmail(e.target.value)} placeholder={_email || "email"} />
                 </div>
                 <div className={styles.inputStyles}>
-                    <input onChange={(e) => setphone_number(e.target.value)} placeholder={phone_number || "phone_number"} />
-                    <input onChange={(e) => setaddress(e.target.value)} placeholder={address || "address"} />
+                    <input onChange={(e) => setphone_number(e.target.value)} placeholder={_phonenumber || "phone_number"} />
+                    <input onChange={(e) => setaddress(e.target.value)} placeholder={_address || "address"} />
                 </div>
                 <div className={styles.inputStyles}>
-                    <input onChange={(e) => setcredit_card(e.target.value)} placeholder={credit_card || "Credit Card Number"} />
+                    <input onChange={(e) => setcredit_card(e.target.value)} placeholder={_creditcard || "Credit Card Number"} />
                 </div>
 
             </form>

@@ -47,25 +47,27 @@ function App() {
     setOnAddClick(true);
   }
 
-  const addNewCustomer = (getInfos)=>{
+  const addNewCustomer = (getInfos) => {
     dispatch(addCustomer(getInfos));
   }
-  const editSelectedCustomer=(getInfos)=>{
+  const editSelectedCustomer = (getInfos) => {
     dispatch(editCustomer(getInfos))
   }
   return (
     <div className="app">
       {getCustomersData &&
         <>
-          <div>
-            <button onClick={() => onAddNewCustomerClick()}>ADD</button>
-            <button onClick={() => deletedCustomer()}>DELETE</button>
-            <button onClick={() => onEditedCustomerClick()}>EDIT</button>
-          </div>
+
           <p>My Customers</p>
+          <div className="btnStyles">
+            <button onClick={() => onAddNewCustomerClick()}>ADD</button>
+            <button onClick={() => onEditedCustomerClick()}>EDIT</button>
+            <button onClick={() => deletedCustomer()}>DELETE</button>
+
+          </div>
         </>
       }
-      <div>
+      <div className="formInfoContainer">
         {onAddClick && <div className="formComponentStyle">
           <FormComponent
             onSubmit={(submition) => setOnAddClick(submition)}

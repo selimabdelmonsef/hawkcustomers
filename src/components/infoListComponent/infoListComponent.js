@@ -5,15 +5,13 @@ import { useSelector } from 'react-redux';
 const InfoListComponent = ({
     tabelTitles,
     customerInfos,
-    customerData,
-    dataInput,
     selectedCustomer
 }) => {
     const getSelectedCustomer = useSelector(state => state.customer.selected);
 
     return (
         <div className={styles.infoListComponent}>
-            <table>
+            <table className={styles.tableStyle}>
                 <tr className={styles.tableTitles}>
                     {tabelTitles?.map((element) => {
                         return <th>{element}</th>

@@ -6,17 +6,12 @@ export const selectCustomer = (payload) => ({
     data: payload
 });
 
-// export const getCustomers = (payload) => ({
-//     type: REDUCERS_CONSTANTS.CUSTOMER.GET_CUSTOMER_DATA,
-//     data: payload
-// });
-
 export const getCustomers = (payload) => {
     const convertToKeydObj = convertArrayToObject(payload, 'id');
     return {
-            type: REDUCERS_CONSTANTS.CUSTOMER.GET_CUSTOMER_DATA,
-            data: convertToKeydObj
-        };
+        type: REDUCERS_CONSTANTS.CUSTOMER.GET_CUSTOMER_DATA,
+        data: convertToKeydObj
+    };
 }
 
 export const addCustomer = (payload) => ({

@@ -1,6 +1,16 @@
 .app {
   margin: 20px 10px;
   text-align: center;
+  .btnStyles{
+    display: flex;
+    place-content: space-evenly;
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+  .formInfoContainer{
+    overflow-y: scroll;
+    height: 700px
+  }
   .title {
     font-size: 30px;
     font-weight: bold;
@@ -14,14 +24,17 @@
   color: red;
     text-align-last: center;
 }
-.formComponentStyle{
-  margin-left: 20%;
-}
 }
 
 @media only screen and (min-width:768px) {
   .app {
     margin: 20px 40px;
+    .formInfoContainer{
+      height: 600px;
+      .formComponentStyle{
+        margin-left: 20%;
+      }
+    }
     .title{
       font-size: 30px;
     }
