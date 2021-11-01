@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addCustomer, deleteCustomer, editCustomer, getCustomers, selectCustomer } from './state/redux-actions/customerAction';
 import { useEffect, useState } from 'react';
 import FormComponent from './components/formComponent/formComponent';
+import { IMAGES } from './constants/images.constants';
 
 function App() {
   const dispatch = useDispatch();
@@ -13,7 +14,8 @@ function App() {
   const selectedCustomer = useSelector(state => state.customer.selected);
   const [selectedCustomerState, setSelectedCustomer] = useState(false)
   const { data: getCustomersData, isPending, error } = useFetch(api.customers_api);
-  const [onAddEditClick, setOnAddEditClick] = useState(false);
+  const [onAddClick, setOnAddClick] = useState(false);
+  const [onEditClick, setOnEditClick] = useState(false);
   const [addNewCustomerClicked, setAddNewCustomerClicked] = useState(false);
   const [editCustomerClicked, setEditCustomerClicked] = useState(false);
 
@@ -40,17 +42,16 @@ function App() {
       alert("Please select a customer first");
     }
     else {
-      setOnAddEditClick(true);
+      setOnEditClick(true);
       setEditCustomerClicked(true);
     }
 
   }
   const onAddNewCustomerClick = () => {
-    dispatch(selectCustomer(null));
-      setOnAddEditClick(true);
-      setAddNewCustomerClicked(true);
-
+    setOnAddClick(true);
+    setAddNewCustomerClicked(true);
   }
+
   const addEditNewCustomer = (getInfos) => {
     if (addNewCustomerClicked === true) {
       dispatch(addCustomer(getInfos));
@@ -59,28 +60,62 @@ function App() {
     else if (editCustomerClicked === true) {
       dispatch(editCustomer(getInfos));
       setEditCustomerClicked(false);
-      dispatch(selectCustomer(null));
     }
   }
   return (
     <div className="app">
+      {getCustomersData &&
+        <>
+          <div>
+            <button onClick={() => onAddNewCustomerClick()}> add new </button>
+            <button onClick={() => deletedCustomer()}>DELETE</button>
+            <button onClick={() => editedCustomer()}>EDIT </button>
+          </div>
+          <p>My Customers</p>
+        </>
+      }
       <div>
-        <button onClick={() => onAddNewCustomerClick()}> add new </button>
-        <button onClick={() => deletedCustomer()}>DELETE</button>
-        <button onClick={() => editedCustomer()}>EDIT </button>
-      </div>
-      <p>My Customers</p>
-      <div>
-        {onAddEditClick === false ?
-          ""
-          :
-          <div className="formComponentStyle">
-            <FormComponent
-              onSubmit={(submition) => setOnAddEditClick(submition)}
-              infos={(getInfos) => addEditNewCustomer(getInfos)} />
-          </div>}
-        {isPending ? "Loading..."
-          :
+        {onAddClick && <div className="formComponentStyle">
+          <FormComponent
+            onSubmit={(submition) => setOnAddClick(submition)}
+            infos={(getInfos) => addEditNewCustomer(getInfos)}
+            _canEditId={true}
+            _id=""
+            _first_name=""
+            _last_name=""
+            _gender=""
+            _username=""
+            _email=""
+            _phonenumber=""
+            _address=""
+            _creditcard=""
+          />
+        </div>}
+
+        {onEditClick && <div className="formComponentStyle">
+          <FormComponent
+            onSubmit={(submition) => setOnEditClick(submition)}
+            infos={(getInfos) => addEditNewCustomer(getInfos)}
+            _canEditId={false}
+            _id={selectedCustomer?.id}
+            _first_name={selectedCustomer?.first_name}
+            _last_name={selectedCustomer?.last_name}
+            _gender={selectedCustomer?.gender}
+            _username={selectedCustomer?.username}
+            _email={selectedCustomer?.email}
+            _phonenumber={selectedCustomer?.phone_number}
+            _address={selectedCustomer?.address?.city}
+            _creditcard={selectedCustomer?.credit_card?.cc_number}
+          />
+        </div>}
+
+        {isPending &&
+          <>
+            <div>Loading Cutomers</div>
+            <img src={IMAGES.SPINNER} alt="loading"></img>
+          </>
+        }
+        {getCustomersData &&
           <InfoListComponent
             tabelTitles={["#", "First Name", "Last Name", "Username", "Gender", "Email", "Phone Number", "Adress", "CC Number"]}
             customerInfos={customers}
