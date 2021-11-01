@@ -21,17 +21,15 @@ const FormComponent = ({
     const [credit_card, setcredit_card] = useState('');
 
     const getInfos = () => {
-        if (id === undefined) {
-            if (
-                first_name === '' ||
-                last_name === "" ||
-                username === '' ||
-                gender === '' ||
-                email === '' ||
-                phone_number === '' ||
-                address === '' ||
-                credit_card === '')
-                setEmptyFiels(true)
+        if (!id || !first_name ||
+            !last_name ||
+            !username ||
+            !gender ||
+            !email ||
+            !phone_number ||
+            !address ||
+            !credit_card) {
+            setEmptyFiels(true)
         }
         else {
             infos({
@@ -47,7 +45,6 @@ const FormComponent = ({
             });
             onSubmit(false);
         }
-
     }
     return (
         <div className={styles.formStyle}>
@@ -58,22 +55,22 @@ const FormComponent = ({
                         <input onChange={(e) => setId(e.target.value)} placeholder="id" />
                         :
                         <input disabled={true} value={selectedCustomer.id} placeholder="id" />}
-                    <input onChange={(e) => setfirst_name(e.target.value)} placeholder="first name" />
+                    <input onChange={(e) => setfirst_name(e.target.value)} placeholder={selectedCustomer?.first_name || "first name"} />
                 </div>
                 <div className={styles.inputStyles}>
-                    <input onChange={(e) => setlast_name(e.target.value)} placeholder="last name" />
-                    <input onChange={(e) => setusername(e.target.value)} placeholder="username" />
+                    <input onChange={(e) => setlast_name(e.target.value)} placeholder={selectedCustomer?.last_name || "last name"} />
+                    <input onChange={(e) => setusername(e.target.value)} placeholder={selectedCustomer?.username || "username"} />
                 </div>
                 <div className={styles.inputStyles}>
-                    <input onChange={(e) => setgender(e.target.value)} placeholder="gender" />
-                    <input onChange={(e) => setEmail(e.target.value)} placeholder="email" />
+                    <input onChange={(e) => setgender(e.target.value)} placeholder={selectedCustomer?.gender || "gender"} />
+                    <input onChange={(e) => setEmail(e.target.value)} placeholder={selectedCustomer?.email || "email"} />
                 </div>
                 <div className={styles.inputStyles}>
-                    <input onChange={(e) => setphone_number(e.target.value)} placeholder="phone_number" />
-                    <input onChange={(e) => setaddress(e.target.value)} placeholder="address" />
+                    <input onChange={(e) => setphone_number(e.target.value)} placeholder={selectedCustomer?.phone_number || "phone_number"} />
+                    <input onChange={(e) => setaddress(e.target.value)} placeholder={selectedCustomer?.address.city || "address"} />
                 </div>
                 <div className={styles.inputStyles}>
-                    <input onChange={(e) => setcredit_card(e.target.value)} placeholder="Credit Card Number" />
+                    <input onChange={(e) => setcredit_card(e.target.value)} placeholder={selectedCustomer?.credit_card.cc_number || "Credit Card Number"} />
                 </div>
 
             </form>
