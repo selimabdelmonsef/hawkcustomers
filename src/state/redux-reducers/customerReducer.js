@@ -22,7 +22,7 @@ const customerReducer = (state = initstate, action) => {
                 ...state,
                 customers: {
                     ...state.customers,
-                    [action.data.id]: { ...action.data }
+                    [action.data?.id]: { ...action.data }
                 }
             }
         case REDUCERS_CONSTANTS.CUSTOMER.DELETE_CUSTOMER:
