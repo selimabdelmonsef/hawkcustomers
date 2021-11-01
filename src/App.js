@@ -5,6 +5,7 @@ import useFetch from './hook/useFetch';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCustomer, deleteCustomer, editCustomer, getCustomers, selectCustomer } from './state/redux-actions/customerAction';
 import { useEffect, useState } from 'react';
+import FormComponent from './components/formComponent/formComponent';
 
 function App() {
   const dispatch = useDispatch();
@@ -12,7 +13,10 @@ function App() {
   const selectedCustomer = useSelector(state => state.customer.selected);
   const [selectedCustomerState, setSelectedCustomer] = useState(false)
   const { data: getCustomersData, isPending, error } = useFetch(api.customers_api);
+  const [onAddNewCustomer, setOnAddNewCustomer] = useState(false);
+  const [onAddEditCustomer, setOnEditNewCustomer] = useState(false);
 
+  const [onAddEditClick, setOnAddEditClick] = useState(false);
   useEffect(() => {
     setCustomersData();
   }, [getCustomersData]);
@@ -31,37 +35,42 @@ function App() {
     }
   }
   const editedCustomer = () => {
-    const firstName = prompt("Enter First Name");
-    const lastName = prompt("Enter Last Name");
-    dispatch(editCustomer({
-      "first_name": firstName,
-      "last_name": lastName,
-    }));
+    if (selectedCustomer === null || selectedCustomerState === selectedCustomer) {
+      alert("Select a customer first please");
+    }
+    else{
+      setSelectedCustomer(selectedCustomer);
+      setOnAddEditClick(true);
+      setOnEditNewCustomer(true);
+    }
   }
   const addNewCustomer = () => {
-    const id = prompt("Enter Id");
-    const first_name = prompt("Enter First Name");
-    const last_name = prompt("Enter Last Name");
-    const username = prompt("Enter username");
-    const gender = prompt("Enter gender");
-    const email = prompt("Enter email");
-    const phone_number = prompt("Enter phone number");
-    const address = prompt("Enter address");
-    const CCNumber = prompt("Enter credit card Number");
-    dispatch(addCustomer({
-      id,
-      first_name,
-      last_name,
-      username,
-      gender,
-      email,
-      phone_number,
-      address: { "city": address },
-      credit_card: { "cc_number": CCNumber },
-    }));
+    // if (selectedCustomer === null || selectedCustomerState === selectedCustomer) {
+    //   alert("Select a customer first please");
+    // }
+    // else {
+      setOnAddEditClick(true);
+      setOnAddNewCustomer(true);
+    // }
+
+  }
+  const onAddEditClicked = (submitted) => {
+    setOnAddEditClick(submitted);
+    setOnAddNewCustomer(submitted);
+    setOnEditNewCustomer(submitted);
+  }
+  const addEditCustomer = (customerInfos) => {
+    if (onAddNewCustomer === true) {
+      dispatch(addCustomer(customerInfos))
+    }
+    else if (onAddEditCustomer === true) {
+      dispatch(editCustomer(customerInfos))
+
+    }
   }
   return (
     <div className="app">
+
       <div>
         <button onClick={() => addNewCustomer()}> add new </button>
         <button onClick={() => deletedCustomer()}>DELETE</button>
@@ -69,6 +78,14 @@ function App() {
       </div>
       <p>My Customers</p>
       <div>
+        {onAddEditClick === false ?
+          ""
+          :
+          <div className="formComponentStyle">
+            <FormComponent
+              onSubmit={(submition) => onAddEditClicked(submition)}
+              infos={(getInfos) => addEditCustomer(getInfos)} />
+          </div>}
         {isPending ? "Loading..."
           :
           <InfoListComponent

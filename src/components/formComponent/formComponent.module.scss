@@ -1,0 +1,26 @@
+.formStyle{
+    background-color: lightgray;
+    position: absolute;
+    width: 60%;
+    padding-bottom: 25px;
+    opacity: 0.9;
+    .inputStyles{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .customerInfo{
+        margin-top: 15px;
+        font-size: 17px;
+    }
+    .formBtn{
+        display: flex;
+    justify-content: space-evenly;
+    }
+    .errorFields{
+        margin-top: 10px;
+        color: darkred;
+    }
+}
+

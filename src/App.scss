@@ -1,6 +1,9 @@
 .app {
   margin: 20px 10px;
   text-align: center;
+  .formComponentStyle{
+    margin-left: 20%;
+  }
   .title {
     font-size: 30px;
     font-weight: bold;
